@@ -13,6 +13,7 @@
   const COLOR_TEXT = [30, 40, 46];
   const COLOR_MUTED = [100, 115, 123];
   const PAGE_MARGIN = 40;
+  const LOGO_SIZE = 96; // 64pt * 1.5 (same top-left spot, 50% bigger both ways)
 
   async function buildQuotePDF(quote, settings) {
     const { jsPDF } = global.jspdf;
@@ -39,7 +40,7 @@
       const logoFormat = Utils.getImageFormatFromDataUrl(logoDataUrl);
       if (logoFormat) {
         try {
-          doc.addImage(logoDataUrl, logoFormat, PAGE_MARGIN, headerTop, 64, 64, undefined, "FAST");
+          doc.addImage(logoDataUrl, logoFormat, PAGE_MARGIN, headerTop, LOGO_SIZE, LOGO_SIZE, undefined, "FAST");
         } catch (e) {
           // If the base64 string isn't a valid image, silently skip it
           // rather than breaking PDF generation.
@@ -70,7 +71,7 @@
       metaY += 13;
     });
 
-    y = Math.max(headerTop + 64, metaY) + 14;
+    y = Math.max(headerTop + LOGO_SIZE, metaY) + 14;
 
     // Company name under logo (left column), if it doesn't fit next to the logo
     doc.setFont("helvetica", "bold");
